@@ -20,8 +20,13 @@ def telegram_bot_sendtext(bot_message):
     bot_token = ''  # bot token
     bot_data = requests.get('https://api.telegram.org/bot' + bot_token + '/getUpdates').json()[
         'result']
+    lst_chat_ids = []
     for i in range(1, len(bot_data)):
         bot_chat_id = str(bot_data[i]['message']['chat']['id'])
+        if bot_chat_id in lst_chat_ids:
+            continue
+
+        lst_chat_ids.append(bot_chat_id)
         send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' \
                     + bot_chat_id + '&parse_mode=Markdown&text=' + bot_message
         requests.get(send_text)
