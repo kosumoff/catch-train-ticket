@@ -1,9 +1,9 @@
-import os, re
+import re
 import requests
 import bs4
 import time
 
-date = '07.08.2019'
+date = '07.08.2019'  # date
 
 data = {
     'pa': 'express3',
@@ -14,6 +14,18 @@ data = {
     'TO_STATION': '\u0410\u0442\u044B\u0440\u0430\u0443(2704830)',
     'DATE': date,
 }
+
+
+def telegram_bot_sendtext(bot_message):
+    bot_token = ''  # bot token
+    bot_data = requests.get('https://api.telegram.org/bot' + bot_token + '/getUpdates').json()[
+        'result']
+    for i in range(1, len(bot_data)):
+        bot_chat_id = str(bot_data[i]['message']['chat']['id'])
+        send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' \
+                    + bot_chat_id + '&parse_mode=Markdown&text=' + bot_message
+        requests.get(send_text)
+
 
 while True:
     res = requests.post('https://epay.railways.kz/ktz4/proc', data=data)
@@ -30,12 +42,11 @@ while True:
         coupe = ((re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
 
         if int(plackart) >= 1 or int(coupe) >= 1:
-            print(f"Маршрут поезда: {route}\n"
-                  f"Дата отправления: {date}\n"
-                  f"Время отправления: {time_from}\n"
-                  f"Время прибытия: {time_to}\n"
-                  f"Плацкартный: {plackart}\n"
-                  f"Купе: {coupe}")
-            os.system('afplay OmaeWaMouShindeiru.mp3')
+            telegram_bot_sendtext(f"Маршрут поезда: {route}\n"
+                                  f"Дата отправления: {date}\n"
+                                  f"Время отправления: {time_from}\n"
+                                  f"Время прибытия: {time_to}\n"
+                                  f"Плацкартный: {plackart}\n"
+                                  f"Купе: {coupe}")
 
     time.sleep(300)
