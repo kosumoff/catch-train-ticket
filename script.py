@@ -3,7 +3,7 @@ import requests
 import bs4
 import time
 
-date = '31.08.2019'
+date = '07.08.2019'
 
 data = {
     'pa': 'express3',
@@ -29,7 +29,7 @@ while True:
         plackart = ((re.search('<td>Плацкартный <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
         coupe = ((re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
 
-        if int(plackart) > 1 or int(coupe) > 1:
+        if int(plackart) >= 1 or int(coupe) >= 1:
             print(f"Маршрут поезда: {route}\n"
                   f"Дата отправления: {date}\n"
                   f"Время отправления: {time_from}\n"
