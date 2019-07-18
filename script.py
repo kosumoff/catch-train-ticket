@@ -47,11 +47,11 @@ while True:
         coupe = ((re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
 
         if int(plackart) >= 1 or int(coupe) >= 1:
-            telegram_bot_sendtext(f"Маршрут поезда: {route}\n"
-                                  f"Дата отправления: {date}\n"
-                                  f"Время отправления: {time_from}\n"
-                                  f"Время прибытия: {time_to}\n"
-                                  f"Плацкартный: {plackart}\n"
-                                  f"Купе: {coupe}")
+            telegram_bot_sendtext("Маршрут поезда: " + str(route) +
+                                  "\nДата отправления: " + str(date) +
+                                  "\nВремя отправления: " + str(time_from) +
+                                  "\nВремя прибытия: " + str(time_to) +
+                                  "\nПлацкартный: " + str(plackart) +
+                                  "\nКупе: " + str(coupe))
 
     time.sleep(300)
