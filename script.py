@@ -43,8 +43,15 @@ while True:
                                 str(schedule_item))).group(1))
         time_to = ((re.search('<span class="time-to">Время прибытия: <big><b>(.+?)</b></big></span>',
                               str(schedule_item))).group(1))
-        plackart = ((re.search('<td>Плацкартный <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
-        coupe = ((re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item))).group(1))
+        if re.search('<td>Плацкартный <span class="label">(.+?)</span></td>', str(schedule_item)) == None:
+            plackart = 0
+        else:
+            plackart = (re.search('<td>Плацкартный <span class="label">(.+?)</span></td>', str(schedule_item))).group(1)
+
+        if re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item)) == None:
+            coupe = 0
+        else:
+            coupe = (re.search('<td>Купе <span class="label">(.+?)</span></td>', str(schedule_item))).group(1)
 
         if int(plackart) >= 1 or int(coupe) >= 1:
             telegram_bot_sendtext("Маршрут поезда: " + str(route) +
@@ -54,4 +61,4 @@ while True:
                                   "\nПлацкартный: " + str(plackart) +
                                   "\nКупе: " + str(coupe))
 
-    time.sleep(300)
+    time.sleep(180)
