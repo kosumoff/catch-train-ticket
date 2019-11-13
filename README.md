@@ -1,2 +1,2 @@
 # catch-train-ticket
-Script for catching train tickets
+Script for catching train tickets (epay.railways.kz)
