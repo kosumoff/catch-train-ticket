@@ -31,8 +31,8 @@ def telegram_bot_sendtext(bot_message):
                     + bot_chat_id + '&parse_mode=Markdown&text=' + bot_message
         requests.get(send_text)
 
-
-while True:
+def check_ticket():
+    while True:
     res = requests.post('https://epay.railways.kz/ktz4/proc', data=data)
     beauty = bs4.BeautifulSoup(res.text, "html.parser")
     schedule_item = beauty.select('.schedule-item')
@@ -62,3 +62,6 @@ while True:
                                   "\nКупе: " + str(coupe))
 
     time.sleep(180)
+
+if __name__ == '__main__':
+    check_ticket()
